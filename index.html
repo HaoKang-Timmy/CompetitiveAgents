@@ -1,10 +1,116 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Win Fast or Lose Slow</title>
-  </head>
-  <body>
-    <h1>Competitive Agents</h1>
-    <p>This is the project page for our paper: <b>Win Fast or Lose Slow</b>.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Win Fast or Lose Slow</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .title {
+      margin-top: 50px;
+      font-size: 36px;
+      font-weight: bold;
+    }
+    .authors {
+      color: green;
+      margin: 10px 0;
+    }
+    .affiliations {
+      font-size: 14px;
+      color: #555;
+    }
+    .buttons {
+      margin: 20px 0;
+    }
+    .buttons a {
+      text-decoration: none;
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 20px;
+      background: black;
+      color: white;
+      border-radius: 20px;
+    }
+    .figures {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 40px auto;
+      max-width: 900px;
+    }
+    .figures img {
+      width: 140%;
+      border: 1px solid #ccc;
+    }
+    .section {
+      max-width: 800px;
+      margin: 40px auto;
+      text-align: left;
+      padding: 0 20px;
+    }
+    .section h2 {
+      border-bottom: 2px solid #eee;
+      padding-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="title">Win Fast or Lose Slow: Balancing Speed and Accuracy in Latency-Sensitive Decisions of LLMs</div>
+  <div class="authors">
+    Hao Kang, Qingru Zhang, Han Cai, Weiyuan Xu, Tushar Krishna, Yilun Du, Tsachy Weissman
+  </div>
+  <div class="affiliations">Georgia Tech Nvidia Harvard Stanford</div>
+  <div class="buttons">
+    <a href="https://arxiv.org/abs/2505.19481">arXiv</a>
+    <a href="https://github.com/HaoKang-Timmy/LatencySensitiveBench">Code</a>
+    <a href="#">Tweet</a>
+  </div>
+
+  <div class="figures">
+    <img src="./Figs/FiguresTogether.png" alt="CompetitiveAgents">
+    <!-- <img src="./Figs/TimeSensitiveTask.png" alt="TimeSensitiveTask"> -->
+    <!-- <img src="./Figs/HFTData.png" alt="HFTData"> -->
+  </div>
+
+  <div class="section">
+    <h2>Overview</h2>
+    <p>We propose a new benchmark for evaluating the speed-accuracy tradeoffs of LLM agents in latency-sensitive tasks. Our benchmark consists of two tasks: StreetFighter, a competitive game, and HFTBench, a high-frequency trading task. We evaluate the performance of LLM agents on these tasks using three different serving methods: API, local, and remote. We find that the speed-accuracy tradeoffs of LLM agents are significantly different depending on the serving method. Our benchmark provides a new perspective on the speed-accuracy tradeoffs of LLM agents and can be used to guide the development of more efficient and accurate LLM agents.</p>
+  </div>
+  <div class="section">
+    <h2>Demo Video</h2>
+    <video src="https://github.com/user-attachments/assets/c69571df-f109-4e92-9e60-60a9cd7933f2" controls width="90%"></video>
+  </div>
+  <div class="section">
+    <h2>Key Features</h2>
+    <ul>
+      <li><strong>Diverse Benchmarks:</strong> StreetFighter and HFT trading tasks.</li>
+      <li><strong>Flexible Agent Deployment:</strong> API/local/remote LLM serving support.</li>
+      <li><strong>System-Aware Evaluation:</strong> Analyze latency-performance tradeoffs.</li>
+    </ul>
+  </div>
+
+  
+
+  <div class="section">
+    <h2>Paper & BibTeX</h2>
+    <pre>
+@misc{kang2025winfastloseslow,
+  title={Win Fast or Lose Slow: Balancing Speed and Accuracy in Latency-Sensitive Decisions of LLMs},
+  author={Hao Kang and Qingru Zhang and Han Cai and Weiyuan Xu and Tushar Krishna and Yilun Du and Tsachy Weissman},
+  year={2025},
+  eprint={2505.19481},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2505.19481},
+}
+    </pre>
+  </div>
+
+</body>
 </html>
