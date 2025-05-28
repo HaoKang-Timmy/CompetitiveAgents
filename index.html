@@ -17,12 +17,21 @@
       font-weight: bold;
     }
     .authors {
-      color: green;
+      font-size: 26px;
       margin: 10px 0;
     }
+    .authors a {
+      color: #0074D9;
+      text-decoration: none;
+    }
     .affiliations {
-      font-size: 14px;
+      font-size: 20px;
       color: #555;
+      margin-bottom: 5px;
+    }
+    .emails {
+      font-size: 24px;
+      color: #444;
     }
     .buttons {
       margin: 20px 0;
@@ -45,8 +54,27 @@
       max-width: 900px;
     }
     .figures img {
-      width: 140%;
+      width: 90%;
       border: 1px solid #ccc;
+    }
+    .figures-small {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 40px auto;
+      max-width: 600px;
+      padding: 0 20px;
+      text-align: left;
+    }
+    .figures-small img {
+      width: 60%;
+      border: 1px solid #ccc;
+    }
+    .figures-small h2 {
+      text-align: left;
+      width: 100%;
+      margin: 0;
     }
     .section {
       max-width: 800px;
@@ -63,39 +91,83 @@
 <body>
   <div class="title">Win Fast or Lose Slow: Balancing Speed and Accuracy in Latency-Sensitive Decisions of LLMs</div>
   <div class="authors">
-    Hao Kang, Qingru Zhang, Han Cai, Weiyuan Xu, Tushar Krishna, Yilun Du, Tsachy Weissman
+    <a href="https://haokang-timmy.github.io/">Hao Kang</a><sup>1</sup>, 
+    <a href="https://www.linkedin.com/in/qingru-zhang-4b789a187">Qingru Zhang</a><sup>1</sup>, 
+    <a href="https://han-cai.github.io/">Han Cai</a><sup>2</sup>, 
+    <a href="#">Weiyuan Xu</a><sup>3</sup>, 
+    <a href="https://tusharkrishna.ece.gatech.edu/">Tushar Krishna</a><sup>1</sup>, 
+    <a href="https://yilundu.github.io/">Yilun Du</a><sup>4</sup>, 
+    <a href="https://web.stanford.edu/~tsachy/">Tsachy Weissman</a><sup>5</sup>
   </div>
-  <div class="affiliations">Georgia Tech Nvidia Harvard Stanford</div>
+  <div class="affiliations">
+    <sup>1</sup>Georgia Tech, <sup>2</sup>NVIDIA, <sup>3</sup>UC Berkeley, <sup>4</sup>Harvard University, <sup>5</sup>Stanford University
+  </div>
+  <div class="emails">
+    Correspond to: hkang342@gatech.edu
+  </div>
+
   <div class="buttons">
     <a href="https://arxiv.org/abs/2505.19481">arXiv</a>
     <a href="https://github.com/HaoKang-Timmy/LatencySensitiveBench">Code</a>
     <a href="#">Tweet</a>
   </div>
 
-  <div class="figures">
-    <img src="./Figs/FiguresTogether.png" alt="CompetitiveAgents">
-    <!-- <img src="./Figs/TimeSensitiveTask.png" alt="TimeSensitiveTask"> -->
-    <!-- <img src="./Figs/HFTData.png" alt="HFTData"> -->
-  </div>
-
+  
   <div class="section">
-    <h2>Overview</h2>
-    <p>We propose a new benchmark for evaluating the speed-accuracy tradeoffs of LLM agents in latency-sensitive tasks. Our benchmark consists of two tasks: StreetFighter, a competitive game, and HFTBench, a high-frequency trading task. We evaluate the performance of LLM agents on these tasks using three different serving methods: API, local, and remote. We find that the speed-accuracy tradeoffs of LLM agents are significantly different depending on the serving method. Our benchmark provides a new perspective on the speed-accuracy tradeoffs of LLM agents and can be used to guide the development of more efficient and accurate LLM agents.</p>
-  </div>
-  <div class="section">
-    <h2>Demo Video</h2>
+    <h2>StreetFighter</h2>
     <video src="https://github.com/user-attachments/assets/c69571df-f109-4e92-9e60-60a9cd7933f2" controls width="90%"></video>
   </div>
   <div class="section">
-    <h2>Key Features</h2>
-    <ul>
-      <li><strong>Diverse Benchmarks:</strong> StreetFighter and HFT trading tasks.</li>
-      <li><strong>Flexible Agent Deployment:</strong> API/local/remote LLM serving support.</li>
-      <li><strong>System-Aware Evaluation:</strong> Analyze latency-performance tradeoffs.</li>
-    </ul>
+    <h2>HFTBench</h2>
+    <img src="./Figs/HFTData.png" alt="CompetitiveAgents" controls width="90%">
   </div>
-
-  
+  <div class="section">
+    <h2>Abstract</h2>
+    <p>We propose a new benchmark for evaluating the speed-accuracy tradeoffs of LLM agents in latency-sensitive tasks, where the speed and accuracy of the agent are both important. Our benchmark consists of two tasks: StreetFighter, a competitive game, and HFTBench, a high-frequency trading task. We evaluate the performance of LLM agents on these tasks using three different model size and inference bitwidths. We find that the speed-accuracy tradeoffs of LLM agents are significantly different depending on the serving method. Our benchmark provides a new perspective on the speed-accuracy tradeoffs of LLM agents and can be used to guide the development of more efficient and accurate LLM agents.</p>
+  </div>
+  <div class="figures">
+    <img src="./Figs/FiguresTogether.png" alt="CompetitiveAgents">
+  </div>
+  <!-- <div class="section">
+    <h2>Introduction</h2>
+    <p>We propose a new benchmark for evaluating the speed-accuracy tradeoffs of LLM agents in latency-sensitive tasks, where the speed and accuracy of the agent are both important. Our benchmark consists of two tasks: StreetFighter, a competitive game, and HFTBench, a high-frequency trading task. We evaluate the performance of LLM agents on these tasks using three different model size and inference bitwidths. We find that the speed-accuracy tradeoffs of LLM agents are significantly different depending on the serving method. Our benchmark provides a new perspective on the speed-accuracy tradeoffs of LLM agents and can be used to guide the development of more efficient and accurate LLM agents.</p>
+  </div> -->
+  <div class="section" style="padding: 2rem; font-family: sans-serif; max-width: 800px; margin: auto;">
+    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Introduction</h2>
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+      <strong>LLM agents don't just need to think, they need to act <em>fast</em>.</strong> In real-time settings like 
+      <strong>high-frequency trading</strong> and <strong>competitive gaming</strong>, speed and quality go hand-in-hand.
+    </p>
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+      We introduce two benchmarks that push LLMs into latency-critical roles: <strong>StreetFighter</strong>, a fast-paced fighting game, and 
+      <strong>HFTBench</strong>, a high-frequency trading simulator. Each task exposes different sensitivity to inference latency 
+      and output quality.
+    </p>
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+      To address and evaluate these trade-offs, we propose <code style="background: #f4f4f4; padding: 0 0.2rem;">FPX</code>, an adaptive 
+      mixed-precision inference framework that dynamically balances <strong>model size</strong> and <strong>bitwidth</strong>. 
+      This allows fine-grained control over speed–quality balance, helping agents stay competitive under tight timing constraints.
+    </p>
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+      Our findings reveal that faster isn’t always worse, and smarter isn’t always slower. This work opens the door to 
+      <strong>latency-aware design</strong> for future intelligent agents.
+    </p>
+  </div>
+  <div class="section" style="padding: 2rem; font-family: sans-serif; max-width: 800px; margin: auto;">
+    <h2 style="font-size: 2rem; margin-bottom: 1rem;">What is FPX?</h2>
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+      <strong>FPX</strong> is our adaptive mixed-precision inference algorithm that enables <strong>fine-grained latency–quality trade-offs</strong> for LLM agents. Instead of compressing entire models, FPX selectively applies <code style="background: #f4f4f4; padding: 0 0.2rem;">FP4</code> only to layers that tolerate it best, while keeping <code style="background: #f4f4f4; padding: 0 0.2rem;">FP8</code> for sensitive components.
+    </p>
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+      Using a one-time offline calibration step, FPX measures the quantization error of each linear layer, then assigns lower precision to the most robust ones—achieving <strong>significant latency reduction</strong> with <strong>minimal accuracy loss</strong>.
+    </p>
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+      This targeted approach enables LLM agents to respond faster in real-time environments like trading or gaming, without sacrificing decision quality.
+    </p>
+  </div>
+  <div class="figures">
+    <img src="./Figs/Method.png" alt="FPX">
+  </div>
 
   <div class="section">
     <h2>Paper & BibTeX</h2>
