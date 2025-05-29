@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Win Fast or Lose Slow</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       font-family: sans-serif;
@@ -101,6 +102,88 @@
       border-bottom: 2px solid #eee;
       padding-bottom: 5px;
     }
+    
+    /* Interactive Demo Styles */
+    .demo-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .demo-content {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .control-panel {
+      flex: 1;
+      min-width: 300px;
+      text-align: center;
+    }
+    
+    .charts-panel {
+      flex: 2;
+      min-width: 500px;
+    }
+    
+    .speed-dial {
+      width: 200px;
+      height: 200px;
+      margin: 20px auto;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+    }
+    
+    .speed-dial:hover #dialPointer {
+      filter: drop-shadow(0 2px 4px rgba(33, 150, 243, 0.5));
+    }
+    
+    #dialPointer {
+      transition: transform 0.1s ease-out, filter 0.2s ease;
+    }
+    
+    .speed-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      margin: 10px 0;
+    }
+    
+    .chart-container {
+      margin: 20px 0;
+      height: 300px;
+    }
+    
+    .metrics-display {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+    }
+    
+    .metric {
+      text-align: center;
+    }
+    
+    .metric-value {
+      font-size: 20px;
+      font-weight: bold;
+      color: #2196F3;
+      transition: all 0.2s ease;
+    }
+    
+    .metric-label {
+      font-size: 14px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
@@ -137,7 +220,7 @@
     <!-- <img src="./Figs/HFTData.png" alt="CompetitiveAgents" controls width="90%"> -->
 
 
-    <video src="https://github.com/user-attachments/assets/29ac29d2-041c-492a-a142-c51c22e74e41" controls width="90%"></video>
+    <video src="https://github.com/user-attachments/assets/8175d7f0-fe31-4d1d-aa89-d7448ce21890" controls width="90%"></video>
   </div>
   <div class="section">
     <h2>Abstract</h2>
@@ -218,6 +301,446 @@
   <div class="figures">
     <img src="./Figs/Method.png" alt="FPX Method" style="width: 100%; max-width: 600px; margin: 1rem 0;">
   </div>
+  <!-- Interactive Demo Section -->
+  <div class="demo-container">
+    <h2 style="text-align: center; margin-bottom: 30px;">Latency-Quality Trade-off of FPX</h2>
+    <div class="demo-content">
+      <div class="control-panel">
+        <h3>Speed Control</h3>
+        <div class="speed-dial" id="speedDial">
+          <svg width="200" height="200" viewBox="0 0 200 200">
+            <!-- Outer ring (static) -->
+            <circle cx="100" cy="100" r="90" fill="none" stroke="#e0e0e0" stroke-width="4"/>
+            
+            <!-- Direction indicator curve -->
+            <path d="M 60 60 Q 100 40 140 60" fill="none" stroke="#4CAF50" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowhead)"/>
+            <text x="100" y="35" text-anchor="middle" font-size="12" fill="#4CAF50" font-weight="bold">FASTER</text>
+            
+            <!-- Arrow marker definition -->
+            <defs>
+              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#4CAF50"/>
+              </marker>
+            </defs>
+            
+            <!-- Main dial circle (static) -->
+            <circle cx="100" cy="100" r="75" fill="#f8f9fa" stroke="#2196F3" stroke-width="3"/>
+            
+            <!-- Rotatable pointer group -->
+            <g id="dialPointer" transform="rotate(0 100 100)" style="transform-origin: 100px 100px;">
+              <!-- Pointer arrow -->
+              <polygon points="100,30 105,50 95,50" fill="#2196F3"/>
+              <!-- Pointer line -->
+              <line x1="100" y1="50" x2="100" y2="80" stroke="#2196F3" stroke-width="3"/>
+            </g>
+            
+            <!-- Center circle -->
+            <circle cx="100" cy="100" r="15" fill="#2196F3"/>
+            
+            <!-- Grip texture on center -->
+            <g stroke="#fff" stroke-width="1" opacity="0.7">
+              <line x1="85" y1="100" x2="115" y2="100"/>
+              <line x1="100" y1="85" x2="100" y2="115"/>
+              <line x1="92" y1="92" x2="108" y2="108"/>
+              <line x1="108" y1="92" x2="92" y2="108"/>
+            </g>
+            
+            <!-- Center text -->
+            <text x="100" y="105" text-anchor="middle" font-size="10" font-weight="bold" fill="white">SPEED</text>
+          </svg>
+        </div>
+        <div class="speed-value" id="speedValue">1.0x</div>
+        <div class="metrics-display">
+          <div class="metric">
+            <div class="metric-value" id="currentLatency">349ms / 1302ms</div>
+            <div class="metric-label">Current Latency (3B / 14B)</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="charts-panel">
+        <div class="chart-container">
+          <canvas id="gamingChart"></canvas>
+        </div>
+        <div class="chart-container">
+          <canvas id="tradingChart"></canvas>
+        </div>
+        <div class="metrics-display">
+          <div class="metric">
+            <div class="metric-value" id="currentWinRate">50%</div>
+            <div class="metric-label">StreetFighter Win Rate (3B)</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value" id="currentProfitRate">17.2%</div>
+            <div class="metric-label">HFTBench Daily Yield (14B)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Real performance data from experiments
+    const performanceData = {
+      // StreetFighter with Qwen2.5-3B
+      streetfighter: {
+        latencies: [349, 222, 207, 200, 192, 178, 153, 147],
+        winrates: [50, 72.5, 77.5, 80, 62.5, 12.5, 0.0, 0.0]
+      },
+      // HFTBench with 14B model
+      hftbench: {
+        latencies: [1302, 801, 713, 623, 558, 503],
+        daily_yields: [17.20, 23.14, 29.12, 12.93, 0.0, 0.0]
+      }
+    };
+
+    let currentSpeedRatio = 1.0;
+    let gamingChart, tradingChart;
+    
+    // Calculate speed ratio from latency (using 3B model as reference)
+    const baseLatency3B = 349; // fp16 baseline for 3B
+    const baseLatency14B = 1302; // fp16 baseline for 14B
+
+    // Initialize charts
+    function initCharts() {
+      // Gaming Chart
+      const gamingCtx = document.getElementById('gamingChart').getContext('2d');
+      gamingChart = new Chart(gamingCtx, {
+        type: 'line',
+        data: {
+          labels: performanceData.streetfighter.latencies,
+          datasets: [{
+            label: 'Win Rate (%)',
+            data: performanceData.streetfighter.winrates,
+            borderColor: '#FF6B6B',
+            backgroundColor: 'rgba(255, 107, 107, 0.1)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Gaming Performance vs Latency'
+            },
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Latency (ms)'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Win Rate (%)'
+              },
+              min: 0,
+              max: 100
+            }
+          },
+          elements: {
+            point: {
+              radius: 4,
+              hoverRadius: 8
+            }
+          }
+        },
+        plugins: [{
+          id: 'verticalLine',
+          afterDraw: function(chart) {
+            if (chart.tooltip._active && chart.tooltip._active.length) {
+              return;
+            }
+            const ctx = chart.ctx;
+            const currentLatency = Math.round(baseLatency3B / currentSpeedRatio);
+            const xScale = chart.scales.x;
+            const yScale = chart.scales.y;
+            
+            // Find x position for current latency
+            const xPos = xScale.getPixelForValue(currentLatency);
+            
+            if (xPos >= xScale.left && xPos <= xScale.right) {
+              ctx.save();
+              ctx.setLineDash([5, 5]);
+              ctx.strokeStyle = '#FF6B6B';
+              ctx.lineWidth = 2;
+              ctx.beginPath();
+              ctx.moveTo(xPos, yScale.top);
+              ctx.lineTo(xPos, yScale.bottom);
+              ctx.stroke();
+              ctx.restore();
+              
+              // Add label
+              ctx.save();
+              ctx.fillStyle = '#FF6B6B';
+              ctx.font = 'bold 12px Arial';
+              ctx.textAlign = 'center';
+              ctx.fillText(`${currentLatency}ms`, xPos, yScale.top - 5);
+              ctx.restore();
+            }
+          }
+        }]
+      });
+
+      // Trading Chart
+      const tradingCtx = document.getElementById('tradingChart').getContext('2d');
+      tradingChart = new Chart(tradingCtx, {
+        type: 'line',
+        data: {
+          labels: performanceData.hftbench.latencies,
+          datasets: [{
+            label: 'Daily Yield (%)',
+            data: performanceData.hftbench.daily_yields,
+            borderColor: '#4ECDC4',
+            backgroundColor: 'rgba(78, 205, 196, 0.1)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Trading Performance vs Latency'
+            },
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Latency (ms)'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Daily Yield (%)'
+              },
+              min: 0,
+              max: 100
+            }
+          },
+          elements: {
+            point: {
+              radius: 4,
+              hoverRadius: 8
+            }
+          }
+        },
+        plugins: [{
+          id: 'verticalLine',
+          afterDraw: function(chart) {
+            if (chart.tooltip._active && chart.tooltip._active.length) {
+              return;
+            }
+            const ctx = chart.ctx;
+            const currentLatency = Math.round(baseLatency14B / currentSpeedRatio);
+            const xScale = chart.scales.x;
+            const yScale = chart.scales.y;
+            
+            // Find x position for current latency
+            const xPos = xScale.getPixelForValue(currentLatency);
+            
+            if (xPos >= xScale.left && xPos <= xScale.right) {
+              ctx.save();
+              ctx.setLineDash([5, 5]);
+              ctx.strokeStyle = '#4ECDC4';
+              ctx.lineWidth = 2;
+              ctx.beginPath();
+              ctx.moveTo(xPos, yScale.top);
+              ctx.lineTo(xPos, yScale.bottom);
+              ctx.stroke();
+              ctx.restore();
+              
+              // Add label
+              ctx.save();
+              ctx.fillStyle = '#4ECDC4';
+              ctx.font = 'bold 12px Arial';
+              ctx.textAlign = 'center';
+              ctx.fillText(`${currentLatency}ms`, xPos, yScale.top - 5);
+              ctx.restore();
+            }
+          }
+        }]
+      });
+    }
+
+    // Update dial position and performance metrics
+    function updateDial(speedRatio) {
+      currentSpeedRatio = speedRatio;
+      
+      // Calculate current latencies for both models
+      const currentLatency3B = Math.round(baseLatency3B / speedRatio);
+      const currentLatency14B = Math.round(baseLatency14B / speedRatio);
+      
+      // Update speed display
+      document.getElementById('speedValue').textContent = speedRatio.toFixed(1) + 'x';
+      document.getElementById('currentLatency').textContent = `${currentLatency3B}ms / ${currentLatency14B}ms`;
+      
+      // Interpolate performance values
+      const gamingPerf = interpolateValue(performanceData.streetfighter.latencies, performanceData.streetfighter.winrates, currentLatency3B);
+      const tradingPerf = interpolateValue(performanceData.hftbench.latencies, performanceData.hftbench.daily_yields, currentLatency14B);
+      
+      document.getElementById('currentWinRate').textContent = gamingPerf.toFixed(1) + '%';
+      document.getElementById('currentProfitRate').textContent = tradingPerf.toFixed(2) + '%';
+      
+      // Update dial rotation (0 to 180 degrees for 1.0x to 2.6x)
+      const rotationAngle = ((speedRatio - 1.0) / 1.6) * 180;
+      const dialPointer = document.getElementById('dialPointer');
+      console.log(`Rotating to ${rotationAngle} degrees around center (100, 100)`);
+      // 使用CSS transform-origin来控制旋转中心
+      dialPointer.style.transform = `rotate(${rotationAngle}deg)`;
+      
+      // Update charts to redraw vertical lines
+      if (gamingChart) {
+        gamingChart.update('none');
+      }
+      if (tradingChart) {
+        tradingChart.update('none');
+      }
+    }
+
+    // Linear interpolation helper with extrapolation
+    function interpolateValue(xArray, yArray, targetX) {
+      // Sort arrays by x values to ensure proper interpolation
+      const sortedData = xArray.map((x, i) => ({x, y: yArray[i]})).sort((a, b) => a.x - b.x);
+      const sortedX = sortedData.map(d => d.x);
+      const sortedY = sortedData.map(d => d.y);
+      
+      // If target is before first point, extrapolate using first two points
+      if (targetX <= sortedX[0]) {
+        if (sortedX.length < 2) return sortedY[0];
+        const slope = (sortedY[1] - sortedY[0]) / (sortedX[1] - sortedX[0]);
+        return Math.max(0, sortedY[0] + slope * (targetX - sortedX[0]));
+      }
+      
+      // If target is after last point, extrapolate using last two points
+      if (targetX >= sortedX[sortedX.length - 1]) {
+        if (sortedX.length < 2) return sortedY[sortedY.length - 1];
+        const slope = (sortedY[sortedY.length - 1] - sortedY[sortedY.length - 2]) / 
+                     (sortedX[sortedX.length - 1] - sortedX[sortedX.length - 2]);
+        return Math.max(0, sortedY[sortedY.length - 1] + slope * (targetX - sortedX[sortedX.length - 1]));
+      }
+      
+      // Find the two points to interpolate between
+      for (let i = 0; i < sortedX.length - 1; i++) {
+        if (targetX >= sortedX[i] && targetX <= sortedX[i + 1]) {
+          const ratio = (targetX - sortedX[i]) / (sortedX[i + 1] - sortedX[i]);
+          return sortedY[i] + ratio * (sortedY[i + 1] - sortedY[i]);
+        }
+      }
+      
+      // Fallback (should not reach here)
+      return sortedY[0];
+    }
+
+    // Handle dial interaction
+    function setupDialInteraction() {
+      const dial = document.getElementById('speedDial');
+      let isDragging = false;
+      let lastAngle = 0;
+
+      function getAngleFromEvent(event) {
+        const rect = dial.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const clientX = event.clientX || (event.touches && event.touches[0].clientX);
+        const clientY = event.clientY || (event.touches && event.touches[0].clientY);
+        
+        const deltaX = clientX - centerX;
+        const deltaY = clientY - centerY;
+        
+        // Calculate angle in degrees (0 = top, clockwise positive)
+        let angle = Math.atan2(deltaX, -deltaY) * 180 / Math.PI;
+        if (angle < 0) angle += 360;
+        
+        return angle;
+      }
+
+      function handleInteraction(event) {
+        const angle = getAngleFromEvent(event);
+        
+        // Map angle to speed ratio
+        // We want 0° (top) = 1.0x and 180° (bottom) = 2.6x
+        let normalizedAngle = angle;
+        if (normalizedAngle > 180) {
+          normalizedAngle = 180; // Limit to bottom half
+        }
+        
+        const speedRatio = 1.0 + (normalizedAngle / 180) * 1.6;
+        updateDial(Math.max(1.0, Math.min(2.6, speedRatio)));
+      }
+
+      // Mouse events
+      dial.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        lastAngle = getAngleFromEvent(e);
+        handleInteraction(e);
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+          handleInteraction(e);
+        }
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      // Touch events for mobile
+      dial.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        isDragging = true;
+        lastAngle = getAngleFromEvent(e);
+        handleInteraction(e);
+      });
+
+      document.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+          e.preventDefault();
+          handleInteraction(e);
+        }
+      }, { passive: false });
+
+      document.addEventListener('touchend', () => {
+        isDragging = false;
+      });
+
+      // Wheel event for fine control
+      dial.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -0.05 : 0.05; // Smaller increments for smoother control
+        const newSpeedRatio = Math.max(1.0, Math.min(2.6, currentSpeedRatio + delta));
+        updateDial(newSpeedRatio);
+      });
+    }
+
+    // Initialize everything when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      initCharts();
+      setupDialInteraction();
+      updateDial(1.0); // Set initial position
+    });
+  </script>
+</body>
   <div class="section" style="padding: 2rem; font-family: sans-serif; max-width: 900px; margin: auto;">
     <h2>Evaluation</h2>
     <p style="font-size: 1.1rem; line-height: 1.6;">
@@ -286,5 +809,5 @@
     </pre>
   </div>
 
-</body>
+  
 </html>
