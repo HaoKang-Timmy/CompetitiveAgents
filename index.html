@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Win Fast or Lose Slow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: sans-serif;
@@ -73,8 +74,22 @@
     }
     .figures-small h2 {
       text-align: left;
-      width: 100%;
-      margin: 0;
+    }
+    .cursive {
+      font-family: 'Brush Script MT', cursive;
+      font-style: italic;
+    }
+    .fancy {
+      font-family: 'Lucida Handwriting', 'Brush Script MT', cursive;
+      font-style: italic;
+    }
+    .script {
+      font-family: 'Dancing Script', 'Brush Script MT', cursive;
+      font-style: italic;
+    }
+    .italic-x {
+      font-style: italic;
+      font-family: serif;
     }
     .section {
       max-width: 800px;
@@ -89,7 +104,7 @@
   </style>
 </head>
 <body>
-  <div class="title">Win Fast or Lose Slow: Balancing Speed and Accuracy in Latency-Sensitive Decisions of LLMs</div>
+  <div class="title">Win Fast or Lose Slow: <span class="script">Balancing Speed and Accuracy in Latency-Sensitive Decisions of LLMs</span></div>
   <div class="authors">
     <a href="https://haokang-timmy.github.io/">Hao Kang</a><sup>1</sup>, 
     <a href="https://www.linkedin.com/in/qingru-zhang-4b789a187">Qingru Zhang</a><sup>1</sup>, 
@@ -106,27 +121,31 @@
     Correspond to: hkang342@gatech.edu
   </div>
 
-  <div class="buttons">
+   <div class="buttons">
     <a href="https://arxiv.org/abs/2505.19481">arXiv</a>
     <a href="https://github.com/HaoKang-Timmy/LatencySensitiveBench">Code</a>
     <a href="#">Tweet</a>
   </div>
 
   
-  <div class="section">
+  <!-- <div class="section">
     <h2>StreetFighter</h2>
     <video src="https://github.com/user-attachments/assets/c69571df-f109-4e92-9e60-60a9cd7933f2" controls width="90%"></video>
-  </div>
+  </div> -->
   <div class="section">
-    <h2>HFTBench</h2>
-    <img src="./Figs/HFTData.png" alt="CompetitiveAgents" controls width="90%">
+    <!-- <h2>HFTBench</h2> -->
+    <!-- <img src="./Figs/HFTData.png" alt="CompetitiveAgents" controls width="90%"> -->
 
 
     <video src="https://github.com/user-attachments/assets/29ac29d2-041c-492a-a142-c51c22e74e41" controls width="90%"></video>
   </div>
   <div class="section">
     <h2>Abstract</h2>
-    <p>We propose a new benchmark for evaluating the speed-accuracy tradeoffs of LLM agents in latency-sensitive tasks, where the speed and accuracy of the agent are both important. Our benchmark consists of two tasks: StreetFighter, a competitive game, and HFTBench, a high-frequency trading task. We evaluate the performance of LLM agents on these tasks using three different model size and inference bitwidths. We find that the speed-accuracy tradeoffs of LLM agents are significantly different depending on the serving method. Our benchmark provides a new perspective on the speed-accuracy tradeoffs of LLM agents and can be used to guide the development of more efficient and accurate LLM agents.</p>
+    <p>Large language models (LLMs) have shown remarkable performance across diverse reasoning and generation tasks, and are increasingly deployed as agents in dynamic environments such as code generation and recommendation systems. However, many real-world applications, such as high-frequency trading and real-time competitive gaming, require decisions under strict latency constraints, where faster responses directly translate into higher rewards.</p>
+
+      <p></p>Despite the importance of this latency-quality trade-off, it remains underexplored in the context of LLM-based agents. In this work, we present the first systematic study of this trade-off in real-time decision-making tasks.</p>
+      
+      <p>To support our investigation, we introduce two new benchmarks: <strong>HFTBench</strong>, a high-frequency trading simulation, and <strong>StreetFighter</strong>, a competitive gaming platform. We also designe a new mixed-precision inference framework, <strong>FP<span class="italic-x">X</span></strong>, to enable fine-grained latency-quality trade-offs for LLM agents. Our analysis reveals that optimal latency-quality balance varies by task, and that sacrificing quality for lower latency can significantly enhance downstream performance.</p>
   </div>
   <div class="figures">
     <img src="./Figs/FiguresTogether.png" alt="CompetitiveAgents">
@@ -147,12 +166,12 @@
       and output quality.
     </p>
     <p style="font-size: 1.1rem; line-height: 1.6;">
-      To address and evaluate these trade-offs, we propose <code style="background: #f4f4f4; padding: 0 0.2rem;">FPX</code>, an adaptive 
+      To address and evaluate these trade-offs, we propose <code style="background: #f4f4f4; padding: 0 0.2rem;">FP<span class="italic-x">X</span></code>, an adaptive 
       mixed-precision inference framework that dynamically balances <strong>model size</strong> and <strong>bitwidth</strong>. 
       This allows fine-grained control over speed–quality balance, helping agents stay competitive under tight timing constraints.
     </p>
     <p style="font-size: 1.1rem; line-height: 1.6;">
-      Our findings reveal that faster isn’t always worse, and smarter isn’t always slower. This work opens the door to 
+      Our findings reveal that faster isn't always worse, and smarter isn't always slower. This work opens the door to 
       <strong>latency-aware design</strong> for future intelligent agents.
     </p>
   </div>
@@ -173,23 +192,31 @@
       These benchmarks capture different types of latency-sensitive decision-making and provide a testbed for evaluating the speed–quality trade-off in LLM-based agents.
     </p>
   </div>
+  <div class="section">
+    <h2>StreetFighter</h2>
+    <video src="https://github.com/user-attachments/assets/c69571df-f109-4e92-9e60-60a9cd7933f2" controls width="90%"></video>
+  </div>  
+  <div class="section">
+    <h2>HFTBench</h2>
+    <img src="./Figs/HFTData.png" alt="CompetitiveAgents" controls width="90%">
+  </div>  
   <!-- <div class="figures">
     <img src="./Figs/Benchmarks.png" alt="CompetitiveAgents">
   </div> -->
   <div class="section" style="padding: 2rem; font-family: sans-serif; max-width: 800px; margin: auto;">
-    <h2 style="font-size: 2rem; margin-bottom: 1rem;">What is FPX?</h2>
+    <h2 style="font-size: 2rem; margin-bottom: 1rem;">What is FP<span class="italic-x">X</span>?</h2>
     <p style="font-size: 1.1rem; line-height: 1.6;">
-      <strong>FPX</strong> is our adaptive mixed-precision inference algorithm that enables <strong>fine-grained latency–quality trade-offs</strong> for LLM agents. Instead of compressing entire models, FPX selectively applies <code style="background: #f4f4f4; padding: 0 0.2rem;">FP4</code> only to layers that tolerate it best, while keeping <code style="background: #f4f4f4; padding: 0 0.2rem;">FP8</code> for sensitive components.
+      <strong>FP<span class="italic-x">X</span></strong> is our adaptive mixed-precision inference algorithm that enables <strong>fine-grained latency–quality trade-offs</strong> for LLM agents. Instead of compressing entire models, FP<span class="italic-x">X</span> selectively applies <code style="background: #f4f4f4; padding: 0 0.2rem;">FP4</code> only to layers that tolerate it best, while keeping <code style="background: #f4f4f4; padding: 0 0.2rem;">FP8</code> for sensitive components.
     </p>
     <p style="font-size: 1.1rem; line-height: 1.6;">
-      Using a one-time offline calibration step, FPX measures the quantization error of each linear layer, then assigns lower precision to the most robust ones—achieving <strong>significant latency reduction</strong> with <strong>minimal accuracy loss</strong>.
+      Using a one-time offline calibration step, FP<span class="italic-x">X</span> measures the quantization error of each linear layer, then assigns lower precision to the most robust ones—achieving <strong>significant latency reduction</strong> with <strong>minimal accuracy loss</strong>.
     </p>
     <p style="font-size: 1.1rem; line-height: 1.6;">
       This targeted approach enables LLM agents to respond faster in real-time environments like trading or gaming, without sacrificing decision quality.
     </p>
   </div>
   <div class="figures">
-    <img src="./Figs/Method.png" alt="FPX">
+    <img src="./Figs/Method.png" alt="FPX Method" style="width: 100%; max-width: 600px; margin: 1rem 0;">
   </div>
   <div class="section" style="padding: 2rem; font-family: sans-serif; max-width: 900px; margin: auto;">
     <h2>Evaluation</h2>
