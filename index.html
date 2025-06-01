@@ -157,7 +157,7 @@
     
     .chart-container {
       margin: 20px 0;
-      height: 300px;
+      height: 250px;
     }
     
     .metrics-display {
@@ -183,6 +183,118 @@
     .metric-label {
       font-size: 14px;
       color: #666;
+    }
+    
+    /* Button and GIF Styles */
+    .gif-display {
+      margin: 20px 0;
+      text-align: center;
+    }
+    
+    .speed-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    
+    .speed-btn {
+      padding: 10px 20px;
+      border: 2px solid #2196F3;
+      background: white;
+      color: #2196F3;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      min-width: 60px;
+    }
+    
+    .speed-btn:hover {
+      background: #e3f2fd;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+    }
+    
+    .speed-btn.active {
+      background: #2196F3;
+      color: white;
+      box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+    }
+    
+    /* StreetFighter specific button styles */
+    .sf-speed-btn {
+      padding: 10px 20px;
+      border: 2px solid #FF6B6B;
+      background: white;
+      color: #FF6B6B;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      min-width: 60px;
+    }
+    
+    .sf-speed-btn:hover {
+      background: #ffe3e3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+    }
+    
+    .sf-speed-btn.active {
+      background: #FF6B6B;
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+    }
+    
+    /* Circular Dial Styles */
+    .dial-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 20px auto;
+    }
+    
+    .dial-svg {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .dial-track {
+      fill: none;
+      stroke: #ddd;
+      stroke-width: 8;
+    }
+    
+    .dial-progress {
+      fill: none;
+      stroke: #2196F3;
+      stroke-width: 8;
+      stroke-linecap: round;
+      transition: stroke-dasharray 0.3s ease;
+    }
+    
+    .dial-pointer {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      transform-origin: 100px 100px;
+    }
+    
+    .dial-center {
+      fill: #2196F3;
+    }
+    
+    .dial-arrow {
+      fill: #2196F3;
+    }
+    
+    .speed-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      margin: 10px 0;
     }
   </style>
 </head>
@@ -224,7 +336,7 @@
   </div>
   <div class="section">
     <h2>Abstract</h2>
-    <p>Large language models (LLMs) have shown remarkable performance across diverse reasoning and generation tasks, and are increasingly deployed as agents in dynamic environments such as code generation and recommendation systems. However, many real-world applications, such as high-frequency trading and real-time competitive gaming, require decisions under strict latency constraints, where faster responses directly translate into higher rewards.</p>
+    <p>Large language models (LLMs) have shown remarkable performance across diverse reasoning and generation tasks, and are increasingly deployed as agents in dynamic environments such as code generation and recommendation systems. However, many <strong>real-world applications</strong>, such as high-frequency trading and real-time competitive gaming, require decisions under strict latency constraints, where faster responses directly translate into higher rewards.</p>
 
       <p></p>Despite the importance of this latency-quality trade-off, it remains underexplored in the context of LLM-based agents. In this work, we present the first systematic study of this trade-off in real-time decision-making tasks.</p>
       
@@ -277,7 +389,33 @@
   </div>
   <div class="section">
     <h2>StreetFighter</h2>
-    <video src="https://github.com/user-attachments/assets/c69571df-f109-4e92-9e60-60a9cd7933f2" controls width="90%"></video>
+    <!-- <video src="https://github.com/user-attachments/assets/c69571df-f109-4e92-9e60-60a9cd7933f2" controls width="90%"></video> -->
+    
+    <!-- Speed Control for StreetFighter -->
+    <div style="margin: 30px 0; padding: 20px; background: #f9f9f9; border-radius: 10px;">
+      <h3 style="text-align: center; margin-bottom: 20px;">FPX Speed Demonstration</h3>
+      
+      <!-- Video Display Area -->
+      <div style="text-align: center; margin: 20px 0;">
+        <video id="streetfighterVideo" controls autoplay muted loop style="width: 100%; max-width: 400px; border: 2px solid #ddd; border-radius: 8px;">
+          <source src="" type="video/mp4">
+          您的浏览器不支持视频播放。
+        </video>
+      </div>
+      
+      <!-- Speed Buttons -->
+      <div style="display: flex; gap: 10px; justify-content: center; margin: 20px 0;">
+        <button class="sf-speed-btn active" data-speed="1.0" data-video="https://github.com/user-attachments/assets/7c249a00-a4a8-42c9-9718-c088d38bce0f">1.0x</button>
+        <button class="sf-speed-btn" data-speed="1.6" data-video="https://github.com/user-attachments/assets/eb53a62c-9471-48e2-bf32-42ff4aaa5f96">1.6x</button>
+        <button class="sf-speed-btn" data-speed="2.1" data-video="https://github.com/user-attachments/assets/8511e72d-e3f4-4777-9010-7cd5f7910e33">2.1x</button>
+        <button class="sf-speed-btn" data-speed="2.4" data-video="https://github.com/user-attachments/assets/ce72e313-d637-4fb3-9e5c-9b2ffbc982e4">2.4x</button>
+      </div>
+      
+      <div style="text-align: center;">
+        <div style="font-size: 20px; font-weight: bold; color: #333; margin: 10px 0;" id="sfSpeedValue">1.0x Speed</div>
+        <div style="font-size: 16px; color: #666;" id="sfLatencyValue">Latency: 1301ms (14B Model)</div>
+      </div>
+    </div>
   </div>  
   <div class="section">
     <h2>HFTBench</h2>
@@ -355,6 +493,14 @@
             <div class="metric-value" id="currentLatency">349ms / 1302ms</div>
             <div class="metric-label">Current Latency (3B / 14B)</div>
           </div>
+          <div class="metric">
+            <div class="metric-value" id="currentWinRate">50%</div>
+            <div class="metric-label">StreetFighter Win Rate (3B)</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value" id="currentProfitRate">17.2%</div>
+            <div class="metric-label">HFTBench Daily Yield (14B)</div>
+          </div>
         </div>
       </div>
       
@@ -364,16 +510,6 @@
         </div>
         <div class="chart-container">
           <canvas id="tradingChart"></canvas>
-        </div>
-        <div class="metrics-display">
-          <div class="metric">
-            <div class="metric-value" id="currentWinRate">50%</div>
-            <div class="metric-label">StreetFighter Win Rate (3B)</div>
-          </div>
-          <div class="metric">
-            <div class="metric-value" id="currentProfitRate">17.2%</div>
-            <div class="metric-label">HFTBench Daily Yield (14B)</div>
-          </div>
         </div>
       </div>
     </div>
@@ -486,6 +622,21 @@
               ctx.textAlign = 'center';
               ctx.fillText(`${currentLatency}ms`, xPos, yScale.top - 5);
               ctx.restore();
+              
+              // Draw black triangle point on curve
+              const currentWinRate = interpolateValue(performanceData.streetfighter.latencies, performanceData.streetfighter.winrates, currentLatency);
+              const yPos = yScale.getPixelForValue(currentWinRate);
+              
+              ctx.save();
+              ctx.fillStyle = '#000000';
+              ctx.beginPath();
+              // Draw triangle pointing down
+              ctx.moveTo(xPos, yPos - 6);
+              ctx.lineTo(xPos - 5, yPos + 4);
+              ctx.lineTo(xPos + 5, yPos + 4);
+              ctx.closePath();
+              ctx.fill();
+              ctx.restore();
             }
           }
         }]
@@ -532,7 +683,7 @@
                 text: 'Daily Yield (%)'
               },
               min: 0,
-              max: 100
+              max: 35
             }
           },
           elements: {
@@ -573,6 +724,21 @@
               ctx.font = 'bold 12px Arial';
               ctx.textAlign = 'center';
               ctx.fillText(`${currentLatency}ms`, xPos, yScale.top - 5);
+              ctx.restore();
+              
+              // Draw black triangle point on curve
+              const currentYield = interpolateValue(performanceData.hftbench.latencies, performanceData.hftbench.daily_yields, currentLatency);
+              const yPos = yScale.getPixelForValue(currentYield);
+              
+              ctx.save();
+              ctx.fillStyle = '#000000';
+              ctx.beginPath();
+              // Draw triangle pointing down
+              ctx.moveTo(xPos, yPos - 6);
+              ctx.lineTo(xPos - 5, yPos + 4);
+              ctx.lineTo(xPos + 5, yPos + 4);
+              ctx.closePath();
+              ctx.fill();
               ctx.restore();
             }
           }
@@ -733,10 +899,65 @@
       });
     }
 
+    // Handle StreetFighter button interaction
+    function setupStreetFighterButtons() {
+      const sfButtons = document.querySelectorAll('.sf-speed-btn');
+      const sfVideoDisplay = document.getElementById('streetfighterVideo');
+      
+      // StreetFighter videos use 14B model with base latency of 1301ms
+      const baseLatency14B_SF = 1301;
+      
+      sfButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all SF buttons
+          sfButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // Add active class to clicked button
+          button.classList.add('active');
+          
+          // Get speed ratio and video URL
+          const speedRatio = parseFloat(button.dataset.speed);
+          const videoUrl = button.dataset.video;
+          
+          // Update video source if URL is provided
+          if (sfVideoDisplay && videoUrl) {
+            const source = sfVideoDisplay.querySelector('source');
+            source.src = videoUrl;
+            sfVideoDisplay.load(); // Reload video with new source
+            sfVideoDisplay.play(); // Auto-play the new video
+          }
+          
+          // Update speed and latency display using 14B model latency
+          const sfSpeedValue = document.getElementById('sfSpeedValue');
+          const sfLatencyValue = document.getElementById('sfLatencyValue');
+          if (sfSpeedValue) sfSpeedValue.textContent = speedRatio.toFixed(1) + 'x Speed';
+          
+          // Calculate latency based on 14B model base latency
+          const currentLatency14B_SF = Math.round(baseLatency14B_SF / speedRatio);
+          if (sfLatencyValue) sfLatencyValue.textContent = `Latency: ${currentLatency14B_SF}ms (14B Model)`;
+          
+          // Also update the main dial and charts
+          updateDial(speedRatio);
+        });
+      });
+      
+      // Initialize with first button (1.0x speed)
+      const firstButton = sfButtons[0];
+      if (firstButton) {
+        const initialSpeedRatio = parseFloat(firstButton.dataset.speed);
+        const initialLatency = Math.round(baseLatency14B_SF / initialSpeedRatio);
+        const sfSpeedValue = document.getElementById('sfSpeedValue');
+        const sfLatencyValue = document.getElementById('sfLatencyValue');
+        if (sfSpeedValue) sfSpeedValue.textContent = initialSpeedRatio.toFixed(1) + 'x Speed';
+        if (sfLatencyValue) sfLatencyValue.textContent = `Latency: ${initialLatency}ms (14B Model)`;
+      }
+    }
+
     // Initialize everything when page loads
     document.addEventListener('DOMContentLoaded', function() {
       initCharts();
       setupDialInteraction();
+      setupStreetFighterButtons();
       updateDial(1.0); // Set initial position
     });
   </script>
