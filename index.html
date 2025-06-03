@@ -334,13 +334,13 @@
 
     <video src="https://github.com/user-attachments/assets/8175d7f0-fe31-4d1d-aa89-d7448ce21890" controls width="90%"></video>
   </div>
-  <div class="section">
-    <h2>Abstract</h2>
-    <p>Large language models (LLMs) have shown remarkable performance across diverse reasoning and generation tasks, and are increasingly deployed as agents in dynamic environments such as code generation and recommendation systems. However, many <strong>real-world applications</strong>, such as high-frequency trading and real-time competitive gaming, require decisions under strict latency constraints, where faster responses directly translate into higher rewards.</p>
+  <div class="section" style="padding: 2rem; font-family: sans-serif; max-width: 800px; margin: auto;">
+    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Abstract</h2>
+    <p style="font-size: 1.1rem; line-height: 1.6;">Large language models (LLMs) have shown remarkable performance across diverse reasoning and generation tasks, and are increasingly deployed as agents in dynamic environments such as code generation and recommendation systems. However, many <strong>real-world applications</strong>, such as high-frequency trading and real-time competitive gaming, require decisions under strict latency constraints, where faster responses directly translate into higher rewards. Despite the importance of this latency-quality trade-off, it remains underexplored in the context of LLM-based agents. In this work, we present the first systematic study of this trade-off in real-time decision-making tasks.</p>
 
-      <p></p>Despite the importance of this latency-quality trade-off, it remains underexplored in the context of LLM-based agents. In this work, we present the first systematic study of this trade-off in real-time decision-making tasks.</p>
+      <!-- <p style="font-size: 1.1rem; line-height: 1.6;"></p>Despite the importance of this latency-quality trade-off, it remains underexplored in the context of LLM-based agents. In this work, we present the first systematic study of this trade-off in real-time decision-making tasks.</p> -->
       
-      <p>To support our investigation, we introduce two new benchmarks: <strong>HFTBench</strong>, a high-frequency trading simulation, and <strong>StreetFighter</strong>, a competitive gaming platform. We also designe a new mixed-precision inference framework, <strong>FP<span class="italic-x">X</span></strong>, to enable fine-grained latency-quality trade-offs for LLM agents. Our analysis reveals that optimal latency-quality balance varies by task, and that sacrificing quality for lower latency can significantly enhance downstream performance.</p>
+      <p style="font-size: 1.1rem; line-height: 1.6;">To support our investigation, we introduce two new benchmarks: <strong>HFTBench</strong>, a high-frequency trading simulation, and <strong>StreetFighter</strong>, a competitive gaming platform. We also designe a new mixed-precision inference framework, <strong>FP<span class="italic-x">X</span></strong>, to enable fine-grained latency-quality trade-offs for LLM agents. Our analysis reveals that optimal latency-quality balance varies by task, and that sacrificing quality for lower latency can significantly enhance downstream performance.</p>
   </div>
   <div class="figures">
     <img src="./Figs/FiguresTogether.png" alt="CompetitiveAgents">
@@ -412,14 +412,14 @@
       </div>
       
       <div style="text-align: center;">
-        <div style="font-size: 20px; font-weight: bold; color: #333; margin: 10px 0;" id="sfSpeedValue">1.0x Speed</div>
+        <div style="font-size: 20px; font-weight: bold; color: #333; margin: 10px 0;" id="sfSpeedValue">1.0x Speed For Red Player</div>
         <div style="font-size: 16px; color: #666;" id="sfLatencyValue">Latency: 1301ms (14B Model)</div>
       </div>
     </div>
   </div>  
   <div class="section">
     <h2>HFTBench</h2>
-    <img src="./Figs/HFTData.png" alt="CompetitiveAgents" controls width="90%">
+    <img src="./Figs/yield_bar_fpx_vs_fp16_slowupdate.gif" alt="HFTBench Trading Yield Animation" controls width="90%">
   </div>  
   <!-- <div class="figures">
     <img src="./Figs/Benchmarks.png" alt="CompetitiveAgents">
@@ -930,7 +930,7 @@
           // Update speed and latency display using 14B model latency
           const sfSpeedValue = document.getElementById('sfSpeedValue');
           const sfLatencyValue = document.getElementById('sfLatencyValue');
-          if (sfSpeedValue) sfSpeedValue.textContent = speedRatio.toFixed(1) + 'x Speed';
+          if (sfSpeedValue) sfSpeedValue.textContent = speedRatio.toFixed(1) + 'x Speed For Red Player';
           
           // Calculate latency based on 14B model base latency
           const currentLatency14B_SF = Math.round(baseLatency14B_SF / speedRatio);
@@ -948,7 +948,7 @@
         const initialLatency = Math.round(baseLatency14B_SF / initialSpeedRatio);
         const sfSpeedValue = document.getElementById('sfSpeedValue');
         const sfLatencyValue = document.getElementById('sfLatencyValue');
-        if (sfSpeedValue) sfSpeedValue.textContent = initialSpeedRatio.toFixed(1) + 'x Speed';
+        if (sfSpeedValue) sfSpeedValue.textContent = initialSpeedRatio.toFixed(1) + 'x Speed For Red Player';
         if (sfLatencyValue) sfLatencyValue.textContent = `Latency: ${initialLatency}ms (14B Model)`;
       }
     }
